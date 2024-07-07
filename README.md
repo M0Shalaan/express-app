@@ -23,7 +23,7 @@ This project consists of an Express API that interacts with a MongoDB database. 
 
 1. Clone this repository:
 
-git clone https://github.com/your-username/express-mongodb-api.git
+git clone https://github.com/M0Shalaan/express-app.git
 
 2. Install dependencies:
    cd express-mongodb-api npm install
@@ -42,21 +42,13 @@ npm start
 
 - Open your browser or use tools like Postman to test the API.
 - Example endpoints:
-  - `GET /api/users`: Get a list of users.
-  - `POST /api/users`: Create a new user.
-  - `PUT /api/users/:id`: Update a user by ID.
-  - `DELETE /api/users/:id`: Delete a user by ID.
+  - `GET /`: Get a list of users.
+  - `POST /post`: Create a new user.
+  - `PUT /update/:id`: Update a user by ID.
+  - `DELETE /delete/:id`: Delete a user by ID.
 
 2. Interact with the HTML frontend:
 
 - Open `index.html` in your browser.
 - Use the provided forms to perform CRUD operations.
-- The frontend communicates with the API to display and manipulate data.
-
-## Contributing
-
-Contributions are welcome! If you find any issues or want to enhance the project, feel free to submit pull requests.
-
-## License
-
-This project is licensed under the MIT License. See the LICENSE file for details.
+- The frontend communicates with the API to display and manipulate data.git
