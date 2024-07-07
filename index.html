@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>API Data Input and Display</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>Enter Data:</h1>
+    <form id="dataForm">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name"><br>
+        <label for="age">Age:</label><br>
+        <input type="number" id="age" name="age"><br>
+        <label for="description">Description:</label><br>
+        <textarea id="description" name="description"></textarea><br>
+        <input type="submit" value="Submit">
+    </form>
+
+    <h1>API Response:</h1>
+    <table id="dataTable">
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Description</th>
+            <th>Action</th>
+        </tr>
+        <!-- Rows will be added here -->
+    </table>
+
+    <script>
+        document.getElementById('dataForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent the form from being submitted normally
+
+            const name = document.getElementById('name').value;
+            const age = document.getElementById('age').value;
+            const description = document.getElementById('description').value;
+
+            fetch('http://localhost:4000/post', { // Replace with your API endpoint
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name: name, age: age, description: description }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    // Clear the form
+                    document.getElementById('name').value = '';
+                    document.getElementById('age').value = '';
+                    document.getElementById('description').value = '';
+                    // Fetch the updated data
+                    fetchData();
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        });
+
+        function fetchData() {
+            fetch('http://localhost:4000/') // Replace with your API endpoint
+                .then(response => response.json()) // Parse the data as JSON
+                .then(data => {
+                    // Now 'data' contains the response from the API.
+                    // You can use it to populate your HTML page. For example:
+                    const table = document.getElementById('dataTable');
+                    // Clear the table
+                    while (table.rows.length > 1) {
+                        table.deleteRow(1);
+                    }
+                    // Add the new data
+                    data.forEach(item => {
+                        const row = document.createElement('tr');
+                        const nameCell = document.createElement('td');
+                        const ageCell = document.createElement('td');
+                        const descriptionCell = document.createElement('td');
+                        const actionCell = document.createElement('td');
+                        const deleteButton = document.createElement('button');
+                        const updateButton = document.createElement('button');
+                        deleteButton.textContent = 'Delete';
+                        updateButton.textContent = 'Update';
+                        deleteButton.addEventListener('click', function () {
+                            fetch(`http://localhost:4000/delete/${item._id}`, { // Replace with your API endpoint
+                                method: 'DELETE',
+                            })
+                                .then(response => response.json())
+                                .then(data => {
+                                    console.log('Delete Success:', data);
+                                    // Fetch the updated data
+                                    fetchData();
+                                })
+                                .catch((error) => {
+                                    console.error('Error:', error);
+                                });
+
+                        });
+                        fetchData();
+
+                        updateButton.addEventListener('click', function () {
+                            // Populate the form with the selected row's data
+                            document.getElementById('name').value = item.name;
+                            document.getElementById('age').value = item.age;
+                            document.getElementById('description').value = item.description;
+                        });
+                        actionCell.appendChild(deleteButton);
+                        actionCell.appendChild(updateButton);
+                        nameCell.textContent = item.name;
+                        ageCell.textContent = item.age;
+                        descriptionCell.textContent = item.description;
+                        row.appendChild(nameCell);
+                        row.appendChild(ageCell);
+                        row.appendChild(descriptionCell);
+                        row.appendChild(actionCell);
+                        table.appendChild(row);
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        // Fetch the initial data
+        fetchData();
+    </script>
+</body>
+
+</html>
