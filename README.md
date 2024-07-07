@@ -8,7 +8,7 @@ This project consists of an Express API that interacts with a MongoDB database. 
 
 - **Express API**:
   - Set up an Express server to handle HTTP requests.
-  - Define routes for CRUD operations (e.g., `/api/users`, `/api/posts`).
+  - Define routes for CRUD operations (e.g., `/`, `/post`).
   - Connect to MongoDB using Mongoose.
   - Implement endpoints for creating, reading, updating, and deleting data.
 - **MongoDB Database**:
@@ -52,3 +52,10 @@ npm start
 - Open `index.html` in your browser.
 - Use the provided forms to perform CRUD operations.
 - The frontend communicates with the API to display and manipulate data.git
+
+3. Start the database server:
+- open docker desktop 
+- run docker-compose file 
+  
+  ```
+   docker-compose up
