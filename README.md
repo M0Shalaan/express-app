@@ -19,6 +19,10 @@ This project consists of an Express API that interacts with a MongoDB database. 
   - Use JavaScript (AJAX or Fetch API) to communicate with the API.
   - Display data retrieved from the API in the HTML page.
 
+  **Docker Container**:
+  - pull the mongodb image from docker hub 
+  - Has the mongodb database server that run in isolated enviroment 
+
 ## Installation
 
 1. Clone this repository:
@@ -53,9 +57,18 @@ npm start
 - Use the provided forms to perform CRUD operations.
 - The frontend communicates with the API to display and manipulate data.git
 
-3. Start the database server:
-- open docker desktop 
-- run docker-compose file 
-  
+3 Start the database server (nodemon):
+
+- open terminal and write :
+
+  ```
+  npm run start
+  ```
+
+4. Start the database contianer:
+
+- open docker desktop
+- run docker-compose file
   ```
    docker-compose up
+  ```
